@@ -23,7 +23,7 @@ void UOpenDoor::BeginPlay()
 	FString  Rotation = Owner->GetActorRotation().ToString();
 	UE_LOG(LogTemp, Warning, TEXT("Rotatio is %s!"), *Rotation);
 
-	FRotator DoorRotator = FRotator(0.f, -60.0f, 0.f);
+	FRotator DoorRotator = FRotator(0.f, 20.0f, 0.f);
 	bool BRotate = Owner->SetActorRotation(DoorRotator);
 
 	Rotation = Owner->GetActorRotation().ToString();

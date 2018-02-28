@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "OpenDoor.h"
+#include "Engine/World.h"
 #include "Gameframework/Actor.h"
 
 
@@ -19,6 +20,13 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
+	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+	// ...
+	
+}
+
+void UOpenDoor::OpenDoor()
+{
 	AActor * Owner = GetOwner();
 	FString  Rotation = Owner->GetActorRotation().ToString();
 	UE_LOG(LogTemp, Warning, TEXT("Rotatio is %s!"), *Rotation);
@@ -28,8 +36,6 @@ void UOpenDoor::BeginPlay()
 
 	Rotation = Owner->GetActorRotation().ToString();
 	UE_LOG(LogTemp, Warning, TEXT("Rotatio is %s!"), *Rotation);
-	// ...
-	
 }
 
 
@@ -38,6 +44,10 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if (PressurePlate->IsOverlappingActor(ActorThatOpens))
+	{
+		OpenDoor();
+		// ...
+	}
 }
 

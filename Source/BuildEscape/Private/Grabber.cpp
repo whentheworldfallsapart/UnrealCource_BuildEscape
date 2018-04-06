@@ -4,6 +4,7 @@
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Color.h"
+#include "Public/CollisionQueryParams.h"
 
 #define OUT
 
@@ -59,6 +60,22 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		0,
 		10.f
 	);
-		// See what what we hit
+
+	FHitResult Hit;
+	//setup query params
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT Hit,
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		TraceParameters
+	);
+	// See what what we hit
+	AActor* ActorHit = Hit.GetActor();
+	if (ActorHit) {
+		UE_LOG(LogTemp, Warning, TEXT("Hit Actor Name: %s"), *(ActorHit->GetName()));
+	}
 }
 

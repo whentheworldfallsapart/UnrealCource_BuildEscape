@@ -44,6 +44,7 @@ void UGrabber::BeginPlay()
 		//InputComponet Found
 		UE_LOG(LogTemp, Warning, TEXT("Found Input Componet:"));
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
 	}
 	else
 	{
@@ -54,6 +55,11 @@ void UGrabber::BeginPlay()
 void UGrabber::Grab()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Grab Key Pressed:"));
+}
+
+void UGrabber::Release()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab Key Released:"));
 }
 
 // Called every frame
